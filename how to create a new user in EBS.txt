@@ -1,0 +1,5 @@
+from System administrator we can go to security
+						user
+							define
+then fill the required fields and the assign the responsibility that they allowed like system administrator and application developer.
+ 

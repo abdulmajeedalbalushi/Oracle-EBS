@@ -12,3 +12,17 @@ exception
  dbms_output.put_line('check your program!!');
 end;
 /
+
+-- this another way that can also be done by incraceing by 1 and multiple until 1
+create or replace procedure abdul_pr_fact(n number) is
+s number := n;
+result number :=n;
+begin
+loop
+s := s-1;
+result := result *s;
+exit when s =1;
+end loop;
+dbms_output.put_line('factorial=' || result);
+end;
+/

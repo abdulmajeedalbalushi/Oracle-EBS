@@ -1,0 +1,6 @@
+In the form builder, create a canvas and a data block.
+
+1. Create a CANVAS with the name CAN_EMP.
+2. Create a DATA BLOCK ⇨ EMP Add CAN_EMP.
+3. SAVE TIBYAN_EMP.fmb
+4. abdulmajeed_EMP.fmx

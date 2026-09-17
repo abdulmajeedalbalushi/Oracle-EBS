@@ -1,0 +1,15 @@
+Make the "DEPT" master block and the "EMP" detail block.
+
+1. Visit Oracle Forms Builder.
+2. Make a CANVAS named CAN_DEPT_EMP.
+3. Make a data block named DEPT and store it in CAN_DEPT_EMP.
+4. Make a data block named EMP and place it in CAN_DEPT_EMP.
+5. You'll be asked to establish a connection.
+6. Click Create Relationship after selecting Remove Auto Join.
+            Block Master: DEPT
+            Master Item: DEPTNO
+            Item of Detail: DEPTNO
+            Join Shown: EMP.DEPTNO = DEPT.DEPTNO
+7. By default, three programs and three triggers will be written.
+8. To generate a ABDULMAJEEDMASTERDETAIL.fmb, SAVE
+9. Make a ABDULMAJEEDMASTERDETAIL.fmx file.

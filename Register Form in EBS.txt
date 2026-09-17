@@ -1,0 +1,65 @@
+To create a form: go to APPLICATION DEVELOPER > APPLICATION > FORM.
+
+From: abdulmajeed_EMP.
+
+Application: AOL (application object library) <Tab>.
+
+User Form Name: abdulmajeed_EMP.
+
+<SAVE>.
+
+3. TO VERIFY CREATION, NAVIGATE TO View > Query by Example > Enter.
+
+Name: ABDULMAJEED_EMP.
+
+4. THEN PROCEED TO View > Query by Example > Run TO VIEW THE DETAILS.
+
+5. To create a function: navigate to APPLICATION DEVELOPER > APPLICATION > FUNCTION.
+
+FUNCTION: abdulmajeed_EMP.
+
+USER Function Name: abdulmajeed_EMP.
+
+<click form tab>.
+
+Function: abdulmajeed_EMP.
+
+Form: abdulmajeed_EMP <Tab>.
+
+<SAVE>.
+
+6. To create a menu: ACCESS APPLICATION DEVELOPER > APPLICATION > MENU.
+
+Menu: abdulamjeed_FORM_MENU.
+
+User Menu Name: abdulmajeed_FORM_MENU.
+
+SEQ: 1.
+
+Prompt: EMP.
+
+Function: abdulmajeed_EMP.
+
+<SAVE>.
+
+7. TO CREATE A NEW USER RESPONSIBILITY: GO TO System Administrator > Security > Responsibility > Define.
+
+Name: abdulmajeed_FORM_RESP.
+
+Application: AOL.
+
+Responsibility key: abdulmajeed_RESP_KEY.
+
+Name: Standard.
+
+Application: AOL.
+
+Menu: abdulmajeed_FORM_MENU.
+
+8. Assign the responsibility to a user: System Administrator> Security> User> Define
+            view> query by example> enter
+                    user: ABDULMAJEED
+            view> query by example> run
+       add the responsibility
+            ABDULMAJEED_FORM_RESP
+9. Navigate to ABDUL_RESP responsibility THEN TO VIEW THEN REQUEST.

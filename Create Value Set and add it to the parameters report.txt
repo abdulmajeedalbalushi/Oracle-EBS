@@ -1,0 +1,20 @@
+1. access EBS
+2. Navigate to APPLICATION DEVELOPER> APPLICATION> VALIDATION>SET
+		Value Set Name: ABDUL_VS_DNO
+		List Type: List of values
+		Security Type: No Security
+		Format: Number
+		Maximum size: 4
+		Validation type: Table
+	<click edit information>
+		Table Name: EMP
+		Value: DEPTNO
+		Type: NUMBER
+		Size: 4
+	<SAVE>
+3. Go to APPLICATION DEVELOPER> CONCURRENT> PROGRAM
+		search for the report parameter program (ABDUL_PARA_REP_PG)
+		<click parameters>
+		Value Set: ABDUL_VS_DNO
+		<save>
+4. create a request and view the output.

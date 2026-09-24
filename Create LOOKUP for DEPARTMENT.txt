@@ -1,0 +1,20 @@
+1. Open Lookups
+
+Go to:
+
+Application Developer → Application → Lookups → Application Object Library (AOL)
+
+2. Create the Department Lookup
+
+Enter the following details:
+
+Type: ABDULMAJEED_LOOKUP_DEPT
+Meaning: ABDULMAJEED_LOOKUP_DEPT
+Application: Application Object Library (AOL)
+Description: Test lookup created for Department
+Access Level: Extensible
+
+Why Extensible?
+Because it allows us to add new lookup values in the future without changing the original setup.
+
+Finally, click Save.

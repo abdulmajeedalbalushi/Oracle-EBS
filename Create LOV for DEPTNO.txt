@@ -1,0 +1,102 @@
+1. Create the Form
+Open Oracle Forms Builder.
+Go to Canvas → Create.
+Right-click the canvas and open Property Palette.
+Set the canvas name to:
+CAN_EMP
+Go to Data Blocks → Create.
+Select Use the Data Block Wizard and click Next.
+Select Table or View and enter:
+EMP
+Move all required columns to the selected columns area.
+Continue through the wizard and set the block name to:
+EMP
+Select Tabular layout.
+Set the frame title to:
+EMP DETAILS
+Complete the wizard.
+
+2. Create the DEPTNO LOV
+Select LOV → Create.
+Start the LOV Wizard.
+Enter the query:
+SELECT DEPTNO FROM EMP;
+Move DEPTNO to the right-hand selected column area.
+Select Return Value.
+Choose Look Up Return Item.
+Select:
+EMP.DEPTNO
+Complete the LOV wizard.
+
+3. Configure the LOV and Record Group
+Right-click the record group under Record Groups and open Property Palette.
+Set the record group name to:
+RG_DEPTNO
+Select the LOV under LOVs.
+Set the LOV name to:
+LOV_DEPTNO
+Change the module name to:
+ABDULMAJEED_EMP_LOV
+Go to File → Save.
+Save the Forms module as an .fmb file in your folder.
+Compile the form.
+Register the Form in Oracle EBS R12
+1. Transfer the Form
+Use WinSCP to transfer the compiled form file to the EBS server.
+Place it in the appropriate Forms directory.
+
+
+2. Register the Form
+
+Navigate to:
+
+Application Developer → Application → Form
+
+Register the new form.
+
+
+
+3. Create the Form Function
+
+Navigate to:
+
+Application Developer → Application → Function
+
+Create a new function for:
+
+ABDULMAJEED_EMP_LOV
+
+Set the appropriate function type and form details.
+
+
+4. Add the Function to the Menu
+
+Navigate to:
+
+Application Developer → Application → Menu
+
+Add the newly created function to the required menu.
+
+
+5. Test the Form
+Switch to your responsibility:
+ABDULMAJEED_FORMS_RESP
+Select:
+ABDULMAJEED_EMP_LOV
+Use Query → Execute to retrieve the records.
+Open the form through:
+ABDULMAJEED_FORMS_RESP → ABDULMAJEED_EMP_LOV
+Select Action → Clear All.
+Enter the required values.
+Select Action → Save.
+
+
+6. Verify the Data
+
+Use SQL*Plus to verify the department number:
+
+SELECT *
+FROM EMP
+WHERE DEPTNO = 30;
+
+This confirms that the LOV/form is working with the EMP table and that the selected DEPTNO can be verified directly in the database.

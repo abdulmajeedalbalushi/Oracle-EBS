@@ -1,0 +1,117 @@
+1. Open Notepad
+
+Open Notepad and create a new file.
+
+2. Enter the SQL*Loader Control File
+
+Add the following:
+
+LOAD DATA
+INFILE '/u01/install/VISION/fs1/EBSapps/appl/fnd/12.0.0/reports/US/ABDULMAJEEDDATA.dat'
+INTO TABLE ABDULMAJEED_TEST
+FIELDS TERMINATED BY ","
+OPTIONALLY ENCLOSED BY '"'
+(ID,NAME,COURSE)
+3. Save the File
+
+Save it as:
+
+ABDULMAJEEDCONTROL.ctl
+
+For Save as type, select:
+
+All Files
+
+B. Create the Data File
+1. Open Notepad
+
+Create another new file.
+
+2. Enter the Data
+1,'ABDULMAJEED','ORACLE'
+2,'SALIM','C++'
+3,'ALI','JAVA'
+4,'SAID','PYTHON'
+5,'ABDULLAH','FUSION'
+3. Save the File
+
+Save it as:
+
+ABDULMAJEEDDATA.dat
+
+Select:
+
+Save as type → All Files
+
+C. Create the Table in SQL*Plus
+1. Open SQL*Plus
+
+Connect to the required Oracle database.
+
+2. Create the Table
+
+Run:
+
+CREATE TABLE ABDULMAJEED_TEST
+(
+    ID     NUMBER,
+    NAME   CHAR(50),
+    COURSE VARCHAR2(100)
+);
+3. Verify the Table
+
+Run:
+
+DESC ABDULMAJEED_TEST;
+
+This confirms that the table was created with the expected columns.
+
+D. Transfer the Files to the EBS Server
+1. Open WinSCP
+
+Use WinSCP to transfer the following files:
+
+ABDULMAJEEDCONTROL.ctl
+ABDULMAJEEDDATA.dat
+2. Place Them in the Reports Directory
+
+Copy both files to:
+
+/u01/install/VISION/fs1/EBSapps/appl/fnd/12.0.0/reports/US
+E. Run SQL*Loader
+1. Open Command Prompt
+
+Go to:
+
+Windows → Start → CMD
+
+2. Execute SQL*Loader
+
+Run:
+
+sqlldr userid=apps/apps@EBSDB control='/u01/install/VISION/fs1/EBSapps/appl/fnd/12.0.0/reports/US/ABDULMAJEEDCONTROL.ctl'
+
+SQL*Loader will read the .dat file and insert the records into the ABDULMAJEED_TEST table according to the control file.
+
+F. Verify the Imported Data
+1. Open SQL*Plus
+
+Connect to the database.
+
+2. Query the Table
+
+Run:
+
+SELECT * FROM ABDULMAJEED_TEST;
+3. Verify the Records
+
+You should see:
+
+ID	NAME	COURSE
+1	ABDULMAJEED	ORACLE
+2	SALIM	C++
+3	ALI	JAVA
+4	SAID	PYTHON
+5	ABDULLAH	FUSION
+
+Result: The data file is loaded into the Oracle table using SQL*Loader and the control file.

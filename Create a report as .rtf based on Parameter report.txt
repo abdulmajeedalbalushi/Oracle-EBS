@@ -1,0 +1,147 @@
+1. Open Oracle Reports Builder
+
+Open Oracle Reports Builder.
+
+2. Open the Existing Report
+
+Open the existing report:
+
+ABDULMAJEEDPARREPORT.rdf
+
+3. Check the Data Model
+
+Open Data Model and verify the query:
+
+SELECT * FROM EMP WHERE DEPTNO = :DNO;
+4. Verify the User Parameter
+
+Check that the user parameter is:
+
+DNO
+
+5. Save the Report
+
+Save the report as:
+
+ABDULMAJEEDPARREPORT.rdf
+
+6. Confirm the Report Location
+
+Make sure the report exists in:
+
+/u01/install/VISION/fs1/EBSapps/appl/fnd/12.0.0/reports/US
+
+Register the Concurrent Program
+7. Open Concurrent Programs
+
+Navigate to:
+
+Application Developer → Concurrent → Program
+
+8. Query the Report
+
+Query:
+
+ABDULMAJEEDPARREPORT
+
+9. Set the Output Format
+
+Change the Output Format to:
+
+XML
+
+10. Configure the Parameter
+
+Click Parameters and confirm:
+
+Field	Value
+Sequence	10
+Parameter	DNO
+Value Set	ABDULMAJEED_VS_DNO
+Token	DNO
+
+Save the changes.
+
+Run the Report
+11. Switch Responsibility
+
+Switch to:
+
+ABDULMAJEED_RESP
+
+12. Submit the Request
+
+Go to:
+
+View → Requests → Submit a New Request
+
+13. Select the Report
+
+Select:
+
+ABDULMAJEEDPARREPORT
+
+14. Enter the Parameter
+
+Enter:
+
+DNO = 10
+
+Then submit the request.
+
+15. View the Output
+
+Go to:
+
+View → Requests
+
+Refresh the request status.
+Select the completed request.
+Click View Output.
+Open the top-right menu.
+Save the generated XML file.
+Create the BI Publisher Template
+16. Open Microsoft Word
+
+Open Microsoft Word with BI Publisher installed.
+
+17. Load the Sample XML
+
+From the BI Publisher menu:
+
+BIP → Sample XML
+
+Select the XML file saved from the completed EBS request.
+
+18. Create the Table
+
+Select:
+
+Table Wizard
+
+Choose the required fields from the EMP table:
+
+EMPNO
+ENAME
+JOB
+MGR
+HIREDATE
+SAL
+COMM
+DEPTNO
+
+Click Next and complete the Table Wizard.
+
+19. Save the Template
+
+Save the BI Publisher template as:
+
+ABDULMAJEEDPARREPORT.rtf
+
+20. Preview the Report
+
+From the BI Publisher menu, select:
+
+Preview → HTML
+
+This allows you to verify how the final report will appear.

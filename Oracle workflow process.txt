@@ -1,0 +1,54 @@
+### Creating and Running an Oracle Workflow Process
+
+1. Navigate to **System Administrator → User → Define**.
+
+2. Search for the user **ABDULMAJEED**.
+
+3. Add the responsibility **Workflow Administrator Web Applications** to the user.
+
+4. Open **Oracle Workflow Builder** to create a new workflow process.
+
+5. Select **File → Quick Start Wizard** and create the following:
+   - Workflow Name: **WF_FIRST**
+   - Process Name: **WF_PROCESS**
+
+6. Create a new **Message**:
+   - Name: **WF_MESSAGE**
+   - Body: **This is a message from Oracle Workflow!!**
+
+7. Create a new **Notification**:
+   - Name: **WF_NOTIFY1**
+   - Message: Attach **WF_MESSAGE** to the notification.
+
+8. In the workflow diagram, drag **WF_NOTIFY1** and place it between the **START** and **END** nodes.
+
+9. Right-click **START** and drag a connection line to **WF_NOTIFY1**.
+
+10. Right-click **WF_NOTIFY1** and drag a connection line to the **END** node.
+
+11. Right-click **WF_NOTIFY1** and open **Properties**.
+    - Go to the **Node** tab.
+    - Set the value to **ABDULMAJEED** as the EBS user.
+
+12. Save the workflow:
+    - Select **File → Save As**.
+    - Choose **Database**.
+    - Connect using the EBS database connection: **apps/apps@EBSDB**.
+
+13. Return to Oracle EBS and use **Developer Studio** to run the workflow process created in Workflow Builder.
+
+14. In the process search screen, enter **WF_FIRST** as the process name and click **Search**.
+
+15. Select the **WF_FIRST** process and choose **Run**.
+
+16. Open **Status Monitor**, search for **WF_FIRST**, and view the workflow execution status.
+
+### Workflow Diagram
+
+**START → WF_NOTIFY1 → END**
+
+17. Select the **Notification** and open it.
+
+18. In the notification window, select **View** to display the message:
+
+**"This is a message from Oracle Workflow!!"**

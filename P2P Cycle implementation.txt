@@ -1,0 +1,438 @@
+# Oracle EBS Procurement Cycle – Step-by-Step
+
+### 1. Log in to Oracle EBS
+
+Log in to the Oracle E-Business Suite environment using your assigned user account.
+
+### 2. Assign Responsibilities
+
+Navigate to:
+
+**System Administrator → Security → User → Define**
+
+Search for your user and assign the following responsibilities:
+
+- **Inventory, Vision Operations (USA)**
+- **Purchasing, Vision Operations (USA)**
+- **Payables, Vision Operations (USA)**
+- **General Ledger, Vision Operations (USA)**
+
+### 3. Add the Preparer
+
+Set the preparer/manager information as follows:
+
+- **Person:** Stock, Ms. Pat
+
+Press **Tab**, then select **Save**.
+
+---
+
+## 4. Create the Inventory Item
+
+Navigate to:
+
+**Inventory, Vision Operations (USA) → Items → Master Items**
+
+In the Find window:
+
+- Enter **V%**
+- Select **V1 Vision Operations**
+
+Create the following item:
+
+- **Item:** `XX_ABDULMAJEED_LAPTOP`
+- **Description:** `LAPTOP FOR CODELINE - MUSCAT`
+
+Go to:
+
+**Tools → Copy From**
+
+Select:
+
+- **Template:** Finished Goods
+
+Click **Apply**, then **Done**.
+
+Open the **Purchasing** tab and enter:
+
+- **List Price:** 100
+
+Save the item.
+
+---
+
+## 5. Add Initial Inventory Quantity
+
+Navigate to:
+
+**Inventory, Vision Operations (USA) → Transactions → Miscellaneous Transactions**
+
+Set:
+
+- **Type:** Miscellaneous Receipt
+
+Open **Transaction Lines** and enter:
+
+- **Item:** `XX_ABDULMAJEED_LAPTOP`
+- **Subinventory:** Stores
+- **UOM:** Ea (Each)
+- **Quantity:** 1000
+- **Account:** Account Alias → Employee Exp
+
+Save the transaction.
+
+---
+
+## 6. Check the On-Hand Quantity
+
+Navigate to:
+
+**Inventory, Vision Operations (USA) → On-Hand Availability → On-Hand Quantity**
+
+Enter:
+
+- **Item/Revision:** `XX_ABDULMAJEED_LAPTOP`
+
+Click **Find**, then select **Availability** to view the available quantity.
+
+You can also verify the item in the database:
+
+```sql
+SELECT SEGMENT1
+FROM MTL_SYSTEM_ITEMS_B
+WHERE SEGMENT1 = 'XX_ABDULMAJEED_LAPTOP';
+```
+
+Expected result:
+
+```text
+SEGMENT1
+----------------------------------------
+XX_ABDULMAJEED_LAPTOP
+```
+
+---
+
+# 7. Create the Purchase Requisition
+
+Navigate to:
+
+**Purchasing, Vision Operations (USA) → Requisitions → Requisitions**
+
+### Header Information
+
+- **Operating Unit:** Vision Operations
+- **Type:** Purchase Requisition
+- **Preparer:** Stock, Ms. Pat
+
+### Line Information
+
+- **Num:** 1
+- **Type:** Goods
+- **Item:** `XX_ABDULMAJEED_LAPTOP`
+- **Quantity:** 2
+- **Need-By:** 30-SEP-2026 00:00:00
+
+### Distribution Information
+
+- **Location:** Auckland
+- **Subinventory:** Stores
+- **Supplier:** Abbott Laboratories, Inc.
+- **Site:** CORP HQ
+
+Save the requisition.
+
+The system generates:
+
+- **Requisition Number:** 16080
+
+Select **Approve**, then choose **Print → OK**.
+
+---
+
+## 8. Verify the Requisition in the Database
+
+Navigate to:
+
+**Purchasing, Vision Operations (USA) → Requisitions → Requisition Summary**
+
+Enter:
+
+- **Requisition Number:** 16080
+
+Click **Find**, then open **Lines** and **Distribution**.
+
+Run:
+
+```sql
+SELECT *
+FROM PO_REQUISITION_HEADERS_ALL
+WHERE SEGMENT1 = '16080';
+```
+
+```sql
+SELECT *
+FROM PO_REQUISITION_LINES_ALL
+WHERE REQUISITION_HEADER_ID = '567887';
+```
+
+```sql
+SELECT *
+FROM PO_REQ_DISTRIBUTIONS_ALL
+WHERE REQUISITION_LINE_ID = '618329';
+```
+
+---
+
+# 9. Create the RFQ
+
+Navigate to:
+
+**Purchasing, Vision Operations (USA) → RFQs and Requisitions → RFQ**
+
+Enter:
+
+- **Operating Unit:** Vision Operations
+- **Type:** Standard RFQ
+- **Ship-To:** Auckland
+- **Close Date:** 30-SEP-2026
+- **Item:** `XX_ABDULMAJEED_LAPTOP`
+
+Open **Price Breaks** and enter:
+
+- **Quantity:** 2
+- **Org:** V1
+- **Ship-To:** Auckland
+
+Save the RFQ.
+
+The system generates:
+
+- **RFQ Number:** 368
+
+Open **Suppliers** and enter:
+
+- **Supplier:** Abbott Laboratories, Inc.
+- **Site:** CORP HQ
+
+Save.
+
+### Create the Quotation
+
+Go to:
+
+**Tools → Copy Document**
+
+Enter:
+
+- **Action:** Entire RFQ
+- **Type:** Standard Quotation
+- **Supplier:** Abbott Laboratories, Inc.
+- **Site:** CORP HQ
+
+Click **OK**.
+
+The quotation number generated is:
+
+- **Quotation Number:** 558
+
+Verify the documents using:
+
+```sql
+SELECT *
+FROM PO_HEADERS_ALL
+WHERE SEGMENT1 = '368'
+AND TYPE_LOOKUP_CODE = 'RFQ';
+```
+
+```sql
+SELECT *
+FROM PO_HEADERS_ALL
+WHERE SEGMENT1 = '558'
+AND TYPE_LOOKUP_CODE = 'QUOTATION';
+```
+
+---
+
+# 10. Create the Purchase Order
+
+Navigate to:
+
+**Purchasing, Vision Operations (USA) → Purchase Order → Purchase Order**
+
+Enter:
+
+- **Operating Unit:** Vision Operations
+- **Supplier:** Abbott Laboratories, Inc.
+- **Ship-To:** Auckland
+- **Item:** `XX_ABDULMAJEED_LAPTOP`
+- **Quantity:** 2
+- **Promised:** 30-SEP-2026 00:00:00
+- **Need-By:** 30-SEP-2026 00:00:00
+
+Save the Purchase Order.
+
+The generated PO is:
+
+- **PO Number:** 6735
+- **Revision:** 0
+
+Select **Approve**, then **Print → OK**.
+
+Verify using:
+
+```sql
+SELECT *
+FROM PO_HEADERS_ALL
+WHERE SEGMENT1 = '6735';
+```
+
+```sql
+SELECT *
+FROM PO_LINES_ALL
+WHERE PO_HEADER_ID = '360109';
+```
+
+---
+
+# 11. Receive the Purchase Order
+
+Navigate to:
+
+**Purchasing, Vision Operations (USA) → Receiving → Receipts**
+
+Select:
+
+- **Organization:** V1 Vision Operations
+- **Purchase Order:** 6735
+
+Press **Tab**, then select **Find**.
+
+Enter the receiving comment:
+
+`XX_ABDULMAJEED_LAPTOP - 2 NOS DELIVERED`
+
+Save the receipt.
+
+The generated receipt number is:
+
+- **Receipt:** 9105
+
+Verify it with:
+
+```sql
+SELECT *
+FROM RCV_SHIPMENT_HEADERS
+WHERE RECEIPT_NUM = '9105';
+```
+
+---
+
+# 12. Create the Payables Invoice
+
+Navigate to:
+
+**Payables, Vision Operations (USA) → Invoices → Entry → Invoices**
+
+Enter:
+
+- **PO Number:** 6735
+- **Invoice Date:** 29-SEP-2026
+- **Invoice Number:** ABDULMAJEEDINV001
+- **Invoice Amount:** 200
+- **Payment Method:** CHECK
+
+Open **Lines** and enter:
+
+- **Amount:** 200
+- **PO Line:** 1 — select using LOV
+- **PO Shipment:** 1 — select using LOV
+
+Go to:
+
+**Actions → 1 → Validate**
+
+Click **OK**.
+
+Open **Holds** and select:
+
+**Release → 1**
+
+Select the appropriate **Release Name** using the LOV.
+
+Then go to:
+
+**Actions → 1**
+
+Select:
+
+**Create Accounting → Final Post → OK**
+
+Save the invoice.
+
+Verify the invoice with:
+
+```sql
+SELECT *
+FROM AP_INVOICES_ALL
+WHERE INVOICE_NUM = 'ABDULMAJEEDINV001';
+```
+
+```sql
+SELECT *
+FROM AP_INVOICE_LINES_ALL
+WHERE INVOICE_ID = '653097';
+```
+
+---
+
+# 13. Create the Payment
+
+Navigate to:
+
+**Payables, Vision Operations (USA) → Payments → Entry → Payments**
+
+Enter:
+
+- **Type:** Manual
+- **Trading Partner:** Abbott Laboratories, Inc.
+- **Payment Date:** 29-SEP-2026
+- **Bank Account:** BofA-204
+- **Payment Process Profile:** Check - USD
+
+Open:
+
+**Actions → 1**
+
+Select:
+
+**Create Accounting → Final Post → OK**
+
+---
+
+# 14. View the General Ledger Journal
+
+Run the following SQL query:
+
+```sql
+SELECT *
+FROM GL_JE_HEADERS
+WHERE NAME LIKE '%26 Purchase Invoices USD'
+ORDER BY 1 DESC;
+```
+
+Copy the journal name generated by the system.
+
+For example:
+
+`SEP-26 Purchase Invoices USD`
+
+Then navigate to:
+
+**General Ledger, Vision Operations (USA) → Journal → Enter**
+
+Enter:
+
+- **Journal:** SEP-26 Purchase Invoices USD
+
+Click **Find** to retrieve the journal.
